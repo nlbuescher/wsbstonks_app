@@ -2,7 +2,7 @@ import shared
 import SwiftUI
 
 func greet() -> String {
-	Greeting().greeting()
+	Api(socketConstructor: { SwiftSocket() }).Socket().test()
 }
 
 struct ContentView: View {

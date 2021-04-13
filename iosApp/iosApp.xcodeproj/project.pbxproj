@@ -13,6 +13,7 @@
 		0353932D262659AE003791E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0353932C262659AE003791E5 /* Preview Assets.xcassets */; };
 		03539338262659AE003791E5 /* iosAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03539337262659AE003791E5 /* iosAppTests.swift */; };
 		03539343262659AE003791E5 /* iosAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03539342262659AE003791E5 /* iosAppUITests.swift */; };
+		339769574F57B2A16F9A87DE /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339765313EB62101BDFA7649 /* Socket.swift */; };
 		5212C2EA4B8BF684014CD0CF /* Pods_iosAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD09594D775C1D9A272E3CD7 /* Pods_iosAppTests.framework */; };
 		60E76BCDA2AAC9B2EAA91B91 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A845B1C3465C44A666E2CFF /* Pods_iosApp.framework */; };
 		8510DBEA5FDC2C53513F1074 /* Pods_iosApp_iosAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBB9C8D5E795CFC913481BC1 /* Pods_iosApp_iosAppUITests.framework */; };
@@ -50,6 +51,7 @@
 		03539344262659AE003791E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E145AE92F22ABBE5D0F99CC /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		138E2EB63A8796AD5178BFCA /* Pods-iosAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosAppTests.release.xcconfig"; path = "Target Support Files/Pods-iosAppTests/Pods-iosAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		339765313EB62101BDFA7649 /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		343EC897CCA2EE5E8366CAB1 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		787C46B9A126F112F03E2DA9 /* Pods-iosApp-iosAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp-iosAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-iosApp-iosAppUITests/Pods-iosApp-iosAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8A845B1C3465C44A666E2CFF /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				03539329262659AE003791E5 /* Assets.xcassets */,
 				0353932E262659AE003791E5 /* Info.plist */,
 				0353932B262659AE003791E5 /* Preview Content */,
+				339765313EB62101BDFA7649 /* Socket.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				0353931E262659AC003791E5 /* Sources */,
 				0353931F262659AC003791E5 /* Frameworks */,
 				03539320262659AC003791E5 /* Resources */,
+				FBBCA0E8073C346A903DFBBF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -219,6 +223,7 @@
 				0353933A262659AE003791E5 /* Sources */,
 				0353933B262659AE003791E5 /* Frameworks */,
 				0353933C262659AE003791E5 /* Resources */,
+				5B77702EE6B99139977662CF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -343,6 +348,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5B77702EE6B99139977662CF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp-iosAppUITests/Pods-iosApp-iosAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp-iosAppUITests/Pods-iosApp-iosAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iosApp-iosAppUITests/Pods-iosApp-iosAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B57B2AFBFB274F2D2A6B60B2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -365,6 +387,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FBBCA0E8073C346A903DFBBF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -374,6 +413,7 @@
 			files = (
 				03539328262659AC003791E5 /* ContentView.swift in Sources */,
 				03539326262659AC003791E5 /* WsbStonksApp.swift in Sources */,
+				339769574F57B2A16F9A87DE /* Socket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
