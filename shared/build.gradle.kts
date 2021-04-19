@@ -1,8 +1,8 @@
 import org.gradle.internal.os.OperatingSystem
-import org.jetbrains.kotlin.gradle.plugin.mpp.*
 
 plugins {
 	kotlin("multiplatform")
+	kotlin("plugin.serialization") version "1.4.32"
 	kotlin("native.cocoapods")
 	id("com.android.library")
 }
@@ -29,7 +29,13 @@ kotlin {
 	}
 
 	sourceSets {
-		val commonMain by getting {}
+		val commonMain by getting {
+			dependencies {
+				implementation(kotlin("stdlib-common"))
+				implementation(kotlin("reflect"))
+				implementation("io.ktor:ktor-client-serialization:1.5.3")
+			}
+		}
 		val commonTest by getting {
 			dependencies {
 				implementation(kotlin("test-common"))
@@ -40,6 +46,7 @@ kotlin {
 		val androidMain by getting {
 			dependencies {
 				implementation("com.google.android.material:material:1.3.0")
+				implementation("io.ktor:ktor-client-android:1.5.3")
 			}
 		}
 		val androidTest by getting {
