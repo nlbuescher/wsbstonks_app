@@ -1,9 +1,9 @@
 import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.kotlin.gradle.plugin.mpp.*
 
 plugins {
 	kotlin("multiplatform")
 	kotlin("plugin.serialization") version "1.4.32"
-	kotlin("native.cocoapods")
 	id("com.android.library")
 }
 
@@ -16,15 +16,10 @@ kotlin {
 	android()
 
 	if (host.isMacOsX) {
-		ios()
-
-		cocoapods {
-			ios.deploymentTarget = "14.0"
-
-			summary = "shared"
-			homepage = "shared"
-
-			podfile = project.file("../iosApp/Podfile")
+		ios {
+			binaries.framework {
+				baseName = "shared"
+			}
 		}
 	}
 
@@ -57,7 +52,11 @@ kotlin {
 		}
 
 		if (host.isMacOsX) {
-			val iosMain by getting {}
+			val iosMain by getting {
+				dependencies {
+					implementation("io.ktor:ktor-client-ios:1.5.3")
+				}
+			}
 			val iosTest by getting {}
 		}
 	}
@@ -70,4 +69,21 @@ android {
 		minSdkVersion(21)
 		targetSdkVersion(30)
 	}
+}
+
+if (host.isMacOsX) {
+	val packForXCode by tasks.creating(Sync::class) {
+		group = "build"
+		val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
+		val sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
+		val targetName = "ios" + if (sdkName.startsWith("iphoneos")) "Arm64" else "X64"
+		val framework = kotlin.targets.getByName<KotlinNativeTarget>(targetName).binaries.getFramework(mode)
+		inputs.property("mode", mode)
+		dependsOn(framework.linkTask)
+		val targetDir = File(buildDir, "xcode-frameworks")
+		from({ framework.outputDirectory })
+		into(targetDir)
+	}
+
+	tasks.getByName("build").dependsOn(packForXCode)
 }

@@ -1,14 +1,16 @@
 import shared
 import SwiftUI
 
-func greet() -> String {
-	Api(socketConstructor: { SwiftSocket() }).Socket().test()
+func test() -> String {
+	IosKt.test { (string, error) in
+		print(string ?? "oops")
+	}
+	return "Hello"
 }
 
 struct ContentView: View {
 	var body: some View {
-		Text(greet())
-            .padding()
+		Text(test())
 	}
 }
 
