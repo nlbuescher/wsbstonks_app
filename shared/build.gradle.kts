@@ -24,11 +24,19 @@ kotlin {
 	}
 
 	sourceSets {
+		all {
+			languageSettings.run {
+				useExperimentalAnnotation("kotlin.RequiresOptIn")
+				useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
+			}
+		}
+
 		val commonMain by getting {
 			dependencies {
 				implementation(kotlin("stdlib-common"))
 				implementation(kotlin("reflect"))
 				implementation("io.ktor:ktor-client-serialization:1.5.3")
+				implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
 			}
 		}
 		val commonTest by getting {
