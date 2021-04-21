@@ -23,8 +23,6 @@ data class StonksResult(
 	val stonks: List<Stonk>,
 )
 
-expect fun getRelativeTime(fromTimestamp: Long): String
-
 expect fun HttpClient(): HttpClient
 
 object Api {
@@ -33,3 +31,5 @@ object Api {
 
 	suspend fun allStonks(): StonksResult = client.request("$SERVER/stonks")
 }
+
+expect fun getRelativeTime(fromTimestamp: Long): String
