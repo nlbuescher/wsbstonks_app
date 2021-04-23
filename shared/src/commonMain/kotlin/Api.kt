@@ -1,35 +1,51 @@
 package net.ddns.wsbstonks.shared
 
 import io.ktor.client.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import kotlinx.serialization.*
 
 @Serializable
+data class Portfolio(
+	val buyin: Float,
+	val value: Float,
+	val diffEuro: Float,
+	val diffPercent: Float,
+)
+
+@Serializable
 data class Stonk(
-	val id: Int,
 	val symbol: String,
 	val name: String,
-	@SerialName("menge")
 	val count: Int,
-	val buyin: Float,
-	@SerialName("kurs")
-	val price: Float,
-	val currency: String,
+	val buyinPrice: Float,
+	val buyinValue: Float,
+	val currentPrice: Float,
+	val currentValue: Float,
+	val diffEuro: Float,
+	val diffPercent: Float,
 )
 
 @Serializable
 data class StonksResult(
 	val timestamp: Long,
+	val portfolio: Portfolio,
 	val stonks: List<Stonk>,
 )
 
-expect fun HttpClient(): HttpClient
+@HttpClientDsl
+expect fun HttpClient(block: HttpClientConfig<*>.() -> Unit = {}): HttpClient
 
 object Api {
-	private const val SERVER = "http://wsbstonks.ddns.net:8085/api"
-	private val client = HttpClient()
+	private const val SERVER = "https://wsbstonks.ddns.net"
+	private val client = HttpClient {
+		install(JsonFeature) {
+			serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+				ignoreUnknownKeys = true
+			})
+		}
+	}
 
-	suspend fun allStonks(): StonksResult = client.request("$SERVER/stonks")
+	suspend fun allStonks(): StonksResult = client.request("$SERVER/api/stonks")
 }
-
-expect fun getRelativeTime(fromTimestamp: Long): String

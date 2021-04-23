@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 			val stonks = withContext(IO) {
 				Api.allStonks()
 			}
-			text.text = "${getRelativeTime(stonks.timestamp)}\n${stonks.stonks}"
+			text.text = "${relativeTime(stonks.timestamp)}\n${stonks.stonks}"
 		}
 	}
 }
