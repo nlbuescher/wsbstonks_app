@@ -1,30 +1,41 @@
 package net.ddns.wsbstonks.android
 
 import android.os.*
-import android.widget.*
+import androidx.activity.*
 import androidx.appcompat.app.*
+import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
+import net.ddns.wsbstonks.android.databinding.*
 import net.ddns.wsbstonks.shared.*
+import kotlin.concurrent.*
+
+class MainViewModel : ViewModel() {
+	val timeString = MutableLiveData<String?>()
+	val portfolio = MutableLiveData<Portfolio?>()
+	val stonks = MutableLiveData<List<Stonk>?>()
+
+	suspend fun loadData() = withContext(IO) {
+		val data = Api.allStonks()
+		timeString.postValue(relativeTime(data.timestamp))
+		portfolio.postValue(data.portfolio)
+		stonks.postValue(data.stonks)
+	}
+}
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
-	lateinit var text: TextView
+	private val binding = ActivityMainBinding.inflate(layoutInflater)
+	private val viewModel: MainViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
-
-		text = findViewById(R.id.text_view)
+		setContentView(binding.root)
 	}
 
 	override fun onResume() {
 		super.onResume()
-		launch(Main) {
-			val stonks = withContext(IO) {
-				Api.allStonks()
-			}
-			text.text = "${relativeTime(stonks.timestamp)}\n${stonks.stonks}"
+		fixedRateTimer(period = 10_000) {
+			launch { viewModel.loadData() }
 		}
 	}
 }

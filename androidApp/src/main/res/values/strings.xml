@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="summary_label">Summary</string>
+	<string name="buyin_price_label">Buy-in Price</string>
+	<string name="buyin_value_label">Buy-in Value</string>
+	<string name="current_price_label">Price</string>
+	<string name="current_value_label">Value</string>
+</resources>

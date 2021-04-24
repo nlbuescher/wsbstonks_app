@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="summary_label">Übersicht</string>
+	<string name="buyin_price_label">Kaufpreis</string>
+	<string name="buyin_value_label">Kaufwert</string>
+	<string name="current_price_label">Kurs</string>
+	<string name="current_value_label">Wert</string>
+</resources>
