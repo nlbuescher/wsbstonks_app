@@ -81,15 +81,15 @@ struct StonkItem: View {
 					Text("\(FormatKt.localNumber(number: stonk.currentValue, places: 2))€")
 						.aspectRatio(contentMode: .fill)
 				}
-				HStack {
-					Text("\(sign)\(FormatKt.localNumber(number: stonk.diffEuro, places: 2))€")
-						.foregroundColor(color)
-					Text(" (")
-					Text("\(sign)\(FormatKt.localNumber(number: stonk.diffPercent, places: 2))%")
-						.foregroundColor(color)
-					Text(")")
-				}
 			}.aspectRatio(contentMode: .fit)
+			HStack {
+				Text("\(sign)\(FormatKt.localNumber(number: stonk.diffEuro, places: 2))€")
+					.foregroundColor(color)
+				Text(" (")
+				Text("\(sign)\(FormatKt.localNumber(number: stonk.diffPercent, places: 2))%")
+					.foregroundColor(color)
+				Text(")")
+			}
 		}.padding(4)
 	}
 }
@@ -114,24 +114,41 @@ struct ContentView: View {
 					.font(.largeTitle)
 					.bold()
 
-
+				let sign = result.portfolio.diffEuro < 0 ? "" : "+"
+				let color = result.portfolio.diffEuro < 0 ? Color.red : Color.green
+				VStack {
+					HStack {
+						Text("Buy-in Value")
+							.font(.headline).bold()
+							.aspectRatio(contentMode: .fit)
+						Text("Value")
+							.font(.headline).bold()
+							.aspectRatio(contentMode: .fill)
+					}
+					HStack {
+						Text("\(FormatKt.localNumber(number: result.portfolio.buyin, places: 2))€")
+							.aspectRatio(contentMode: .fit)
+						Text("\(FormatKt.localNumber(number: result.portfolio.value, places: 2))€")
+							.aspectRatio(contentMode: .fill)
+					}
+				}.aspectRatio(contentMode: .fit)
 				HStack {
-					Text("Buy-in Value")
-						.font(.headline).bold()
-						.aspectRatio(contentMode: .fit)
-					Text("Value")
-						.font(.headline).bold()
-						.aspectRatio(contentMode: .fill)
-				}
-				HStack {
-
+					Text("\(sign)\(FormatKt.localNumber(number: result.portfolio.diffEuro, places: 2))€")
+						.foregroundColor(color)
+					Text(" (")
+					Text("\(sign)\(FormatKt.localNumber(number: result.portfolio.diffPercent, places: 2))%")
+						.foregroundColor(color)
+					Text(")")
 				}
 
 				Text(FormatKt.relativeTime(fromTimestamp: result.timestamp))
 
-				List {
-					ForEach(result.stonks) { stonk in
-						StonkItem(stonk)
+				ScrollView {
+					LazyVGrid(columns: [GridItem()]) {
+						ForEach(result.stonks) { stonk in
+							StonkItem(stonk)
+								.padding()
+						}
 					}
 				}
 			}
