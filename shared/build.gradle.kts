@@ -31,7 +31,7 @@ kotlin {
 			}
 		}
 
-		val commonMain by getting {
+		named("commonMain") {
 			dependencies {
 				implementation(kotlin("stdlib-common"))
 				implementation(kotlin("reflect"))
@@ -39,20 +39,20 @@ kotlin {
 				implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
 			}
 		}
-		val commonTest by getting {
+		named("commonTest") {
 			dependencies {
 				implementation(kotlin("test-common"))
 				implementation(kotlin("test-annotations-common"))
 			}
 		}
 
-		val androidMain by getting {
+		named("androidMain") {
 			dependencies {
 				implementation("com.google.android.material:material:1.3.0")
 				implementation("io.ktor:ktor-client-android:1.5.3")
 			}
 		}
-		val androidTest by getting {
+		named("androidTest") {
 			dependencies {
 				implementation(kotlin("test-junit"))
 				implementation("junit:junit:4.13.2")
@@ -60,12 +60,12 @@ kotlin {
 		}
 
 		if (host.isMacOsX) {
-			val iosMain by getting {
+			named("iosMain") {
 				dependencies {
 					implementation("io.ktor:ktor-client-ios:1.5.3")
 				}
 			}
-			val iosTest by getting {}
+			named("iosTest") {}
 		}
 	}
 }
