@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:padding="8dp">
+
+	<TextView
+		android:id="@+id/symbol"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="AAPL" />
+
+	<TextView
+		android:id="@+id/count"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintBottom_toBottomOf="@+id/symbol"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/symbol"
+		tools:text="30x" />
+
+	<TextView
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAlignment="center"
+		android:textAppearance="@style/TextAppearance.AppCompat.Large"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/symbol"
+		tools:text="Apple Inc." />
+
+	<LinearLayout
+		android:id="@+id/buyinLabelRow"
+		android:layout_width="300dp"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toTopOf="@+id/buyinRow"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/name">
+
+		<TextView
+			android:id="@+id/buyinPriceLabel"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:text="@string/buyin_price_label"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/buyinValueLabel"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:text="@string/buyin_value_label"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			android:textStyle="bold" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/buyinRow"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toTopOf="@+id/currentLabelRow"
+		app:layout_constraintEnd_toEndOf="@+id/buyinLabelRow"
+		app:layout_constraintStart_toStartOf="@+id/buyinLabelRow"
+		app:layout_constraintTop_toBottomOf="@+id/buyinLabelRow">
+
+		<TextView
+			android:id="@+id/buyinPrice"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="0.00€" />
+
+		<TextView
+			android:id="@+id/buyinValue"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="0.00€" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/currentLabelRow"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toTopOf="@+id/currentRow"
+		app:layout_constraintEnd_toEndOf="@+id/buyinRow"
+		app:layout_constraintStart_toStartOf="@+id/buyinRow"
+		app:layout_constraintTop_toBottomOf="@+id/buyinRow">
+
+		<TextView
+			android:id="@+id/priceLabel"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:text="@string/current_price_label"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/valueLabel"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:text="@string/current_value_label"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			android:textStyle="bold" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/currentRow"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toTopOf="@+id/diffRow"
+		app:layout_constraintEnd_toEndOf="@+id/buyinLabelRow"
+		app:layout_constraintStart_toStartOf="@+id/buyinLabelRow"
+		app:layout_constraintTop_toBottomOf="@+id/currentLabelRow">
+
+		<TextView
+			android:id="@+id/currentPrice"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="0.00€" />
+
+		<TextView
+			android:id="@+id/currentValue"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dp"
+			android:textAlignment="center"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="0.00€" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/diffRow"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/currentRow">
+
+		<TextView
+			android:id="@+id/diffEuros"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="+0.00€" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/startParen"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+		<TextView
+			android:id="@+id/diffPercent"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+			tools:text="+0.00%" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/endParen"
+			android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+	</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
