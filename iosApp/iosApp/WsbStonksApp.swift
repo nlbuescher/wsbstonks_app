@@ -3,6 +3,12 @@ import SwiftUI
 
 extension Stonk: Identifiable {}
 
+extension Color {
+	static let systemBackground = Color(.systemBackground)
+	static let secondarySystemBackground = Color(.secondarySystemBackground)
+	static let tertiarySystemBackground = Color(.tertiarySystemBackground)
+}
+
 class ContentViewModel: ObservableObject {
 	enum State {
 		case loading
@@ -40,48 +46,56 @@ class ContentViewModel: ObservableObject {
 struct StonkItem: View {
 	let stonk: Stonk
 
-	init(_ stonk: Stonk) { self.stonk = stonk }
-
 	var body: some View {
 		let sign = stonk.diffEuro < 0 ? "" : "+"
-		let color = stonk.diffEuro < 0 ? Color.red : Color.green
+		let color: Color = stonk.diffEuro < 0 ? .red : .green
 		VStack {
 			HStack {
-				Text("\(stonk.symbol)").font(.footnote)
+				Text("\(stonk.symbol)")
+					.font(.footnote)
 				Spacer()
-				Text("\(stonk.count)x").font(.footnote)
+				Text("\(stonk.count)x")
+					.font(.footnote)
 			}
-			Text(stonk.name).font(.title2)
+			Text(stonk.name)
+				.font(.title2)
+				.multilineTextAlignment(.center)
+			Divider()
 			VStack {
 				HStack {
 					Text("Buy-in Price")
-						.font(.headline).bold()
-						.aspectRatio(contentMode: .fit)
+						.font(.headline)
+						.bold()
+						.frame(minWidth: 0, maxWidth: 150)
 					Text("Buy-in Value")
-						.font(.headline).bold()
-						.aspectRatio(contentMode: .fill)
+						.font(.headline)
+						.bold()
+						.frame(minWidth: 0, maxWidth: 150)
 				}
 				HStack {
 					Text("\(FormatKt.localNumber(number: stonk.buyinPrice, places: 3))€")
-						.aspectRatio(contentMode: .fit)
+						.frame(minWidth: 0, maxWidth: 150)
 					Text("\(FormatKt.localNumber(number: stonk.buyinValue, places: 2))€")
-						.aspectRatio(contentMode: .fill)
+						.frame(minWidth: 0, maxWidth: 150)
 				}
 				HStack {
 					Text("Price")
-						.font(.headline).bold()
-						.aspectRatio(contentMode: .fit)
+						.font(.headline)
+						.bold()
+						.frame(minWidth: 0, maxWidth: 150)
 					Text("Value")
-						.font(.headline).bold()
-						.aspectRatio(contentMode: .fill)
+						.font(.headline)
+						.bold()
+						.frame(minWidth: 0, maxWidth: 150)
 				}
 				HStack {
 					Text("\(FormatKt.localNumber(number: stonk.currentPrice, places: 3))€")
-						.aspectRatio(contentMode: .fit)
+						.frame(minWidth: 0, maxWidth: 150)
 					Text("\(FormatKt.localNumber(number: stonk.currentValue, places: 2))€")
-						.aspectRatio(contentMode: .fill)
+						.frame(minWidth: 0, maxWidth: 150)
 				}
-			}.aspectRatio(contentMode: .fit)
+			}
+			Divider()
 			HStack {
 				Text("\(sign)\(FormatKt.localNumber(number: stonk.diffEuro, places: 2))€")
 					.foregroundColor(color)
@@ -90,12 +104,17 @@ struct StonkItem: View {
 					.foregroundColor(color)
 				Text(")")
 			}
-		}.padding(4)
+		}
+			.padding(8)
+			.background(
+				RoundedRectangle(cornerRadius: 10)
+					.foregroundColor(.secondarySystemBackground)
+			)
 	}
 }
 
-let AppWillEnterForeground = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-let AppDidEnterBackground = NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
+let AppWillEnterForegroundNotification = NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+let AppDidEnterBackgroundNotification = NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
 
 struct ContentView: View {
 	@ObservedObject var viewModel = ContentViewModel()
@@ -119,19 +138,21 @@ struct ContentView: View {
 				VStack {
 					HStack {
 						Text("Buy-in Value")
-							.font(.headline).bold()
-							.aspectRatio(contentMode: .fit)
+							.font(.headline)
+							.bold()
+							.frame(minWidth: 0, maxWidth: 150)
 						Text("Value")
-							.font(.headline).bold()
-							.aspectRatio(contentMode: .fill)
+							.font(.headline)
+							.bold()
+							.frame(minWidth: 0, maxWidth: 150)
 					}
 					HStack {
 						Text("\(FormatKt.localNumber(number: result.portfolio.buyin, places: 2))€")
-							.aspectRatio(contentMode: .fit)
+							.frame(minWidth: 0, maxWidth: 150)
 						Text("\(FormatKt.localNumber(number: result.portfolio.value, places: 2))€")
-							.aspectRatio(contentMode: .fill)
+							.frame(minWidth: 0, maxWidth: 150)
 					}
-				}.aspectRatio(contentMode: .fit)
+				}
 				HStack {
 					Text("\(sign)\(FormatKt.localNumber(number: result.portfolio.diffEuro, places: 2))€")
 						.foregroundColor(color)
@@ -146,16 +167,16 @@ struct ContentView: View {
 				ScrollView {
 					LazyVGrid(columns: [GridItem()]) {
 						ForEach(result.stonks) { stonk in
-							StonkItem(stonk)
-								.padding()
+							StonkItem(stonk: stonk)
+								.padding(.horizontal, 8)
 						}
 					}
 				}
 			}
 		}
 			.onAppear { viewModel.start() }
-			.onReceive(AppWillEnterForeground) { _ in viewModel.start() }
-			.onReceive(AppDidEnterBackground) { _ in viewModel.stop() }
+			.onReceive(AppWillEnterForegroundNotification) { _ in viewModel.start() }
+			.onReceive(AppDidEnterBackgroundNotification) { _ in viewModel.stop() }
 	}
 }
 
