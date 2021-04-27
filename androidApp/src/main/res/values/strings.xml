@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="euros" translatable="false">%s€</string>
+	<string name="percent" translatable="false">%s%%</string>
+	<string name="count" translatable="false">%dx</string>
+	<string name="startParen" translatable="false">" ("</string>
+	<string name="endParen" translatable="false">)</string>
 	<string name="summary_label">Summary</string>
 	<string name="buyin_price_label">Buy-in Price</string>
 	<string name="buyin_value_label">Buy-in Value</string>
