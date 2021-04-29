@@ -91,8 +91,10 @@ struct StonkItem: View {
 				HStack {
 					Text("\(FormatKt.localNumber(number: stonk.currentPrice, places: 3))€")
 						.frame(minWidth: 0, maxWidth: 150)
+						.foregroundColor(color)
 					Text("\(FormatKt.localNumber(number: stonk.currentValue, places: 2))€")
 						.frame(minWidth: 0, maxWidth: 150)
+						.foregroundColor(color)
 				}
 			}
 			Divider()
@@ -151,6 +153,7 @@ struct ContentView: View {
 							.frame(minWidth: 0, maxWidth: 150)
 						Text("\(FormatKt.localNumber(number: result.portfolio.value, places: 2))€")
 							.frame(minWidth: 0, maxWidth: 150)
+							.foregroundColor(color)
 					}
 				}
 				HStack {
