@@ -32,6 +32,8 @@ actual fun relativeTime(fromTimestamp: Long): String {
 
 actual fun localNumber(number: Number, places: Int): String {
 	return with(NumberFormat.getInstance(Locale.getDefault())) {
+		maximumFractionDigits = places
+		minimumFractionDigits = places
 		format(number)
 	}
 }

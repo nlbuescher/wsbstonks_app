@@ -10,7 +10,9 @@ plugins {
 group = "net.ddns.wsbstonks"
 version = "1.0-SNAPSHOT"
 
-val host: OperatingSystem = OperatingSystem.current()
+val host = OperatingSystem.current()!!
+
+val ktorVersion = "1.5.4"
 
 kotlin {
 	android()
@@ -35,37 +37,24 @@ kotlin {
 			dependencies {
 				implementation(kotlin("stdlib-common"))
 				implementation(kotlin("reflect"))
-				implementation("io.ktor:ktor-client-serialization:1.5.3")
+				implementation("io.ktor:ktor-client-serialization:$ktorVersion")
 				implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
-			}
-		}
-		named("commonTest") {
-			dependencies {
-				implementation(kotlin("test-common"))
-				implementation(kotlin("test-annotations-common"))
 			}
 		}
 
 		named("androidMain") {
 			dependencies {
 				implementation("com.google.android.material:material:1.3.0")
-				implementation("io.ktor:ktor-client-android:1.5.3")
-			}
-		}
-		named("androidTest") {
-			dependencies {
-				implementation(kotlin("test-junit"))
-				implementation("junit:junit:4.13.2")
+				implementation("io.ktor:ktor-client-android:$ktorVersion")
 			}
 		}
 
 		if (host.isMacOsX) {
 			named("iosMain") {
 				dependencies {
-					implementation("io.ktor:ktor-client-ios:1.5.3")
+					implementation("io.ktor:ktor-client-ios:$ktorVersion")
 				}
 			}
-			named("iosTest") {}
 		}
 	}
 }

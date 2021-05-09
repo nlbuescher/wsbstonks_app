@@ -4,6 +4,7 @@
 xcuserdata/
 
 build/
+release/
 
 local.properties
 *.lock

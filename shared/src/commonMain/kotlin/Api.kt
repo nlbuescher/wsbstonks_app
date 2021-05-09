@@ -38,7 +38,7 @@ data class StonksResult(
 expect fun HttpClient(block: HttpClientConfig<*>.() -> Unit = {}): HttpClient
 
 object Api {
-	private const val SERVER = "https://wsbstonks.ddns.net"
+	private const val SERVER = "https://wsbstonks.info"
 	private val client = HttpClient {
 		install(JsonFeature) {
 			serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
@@ -47,5 +47,10 @@ object Api {
 		}
 	}
 
-	suspend fun allStonks(): StonksResult = client.request("$SERVER/api/stonks")
+	suspend fun allStonks(): StonksResult = try {
+		client.request("$SERVER/api/stonks")
+	} catch(e: Exception) {
+		println(e)
+		throw e
+	}
 }
